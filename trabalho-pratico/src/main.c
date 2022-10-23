@@ -114,8 +114,8 @@ int main(){
     char str[256];
 
     fgets(str, 256, fp); // Ignore header
-    while(fp != NULL){
-        fgets(str, 256, fp);
+    while(fgets(str, 256, fp)){
+        
         User sr = parsing_user(str);
         print_user(sr);
     }
