@@ -33,6 +33,19 @@ typedef struct date{
     AccountSatus account_status;
 } User;
 
+ typedef struct driver{
+    int id;
+    char name[64];
+    Date birth_date;
+    Gender gender;
+    char car_class[64];
+    char license_plate[64];
+    char city[64];
+    Date account_creation;
+    AccountSatus account_status;
+
+ } Driver;
+
 Date parsing_date(char* dateStr){
     Date date;
     char *chunck;
@@ -91,6 +104,51 @@ User parsing_user(char* userStr){
     return user;
 }
 
+Driver parsing_driver( char* driver){
+    Driver drv;
+    char *chunck;
+    char *rest = NULL;
+
+    chunck = strtok_r(driver, ";", &rest);
+    drv.id = atoi(chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    strcpy(drv.name, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    drv.birth_date = parsing_date(chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    if(chunck[0] == 'M'){
+        drv.gender = M;
+    }else{
+        drv.gender = 'F';
+    }
+
+    chunck = strtok_r(NULL, ";", &rest);
+    strcpy(drv.car_class, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    strcpy(drv.license_plate, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    strcpy(drv.city, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    drv.account_creation = parsing_date(chunck);
+
+     chunck = strtok_r(NULL, ";", &rest);
+    if(!strcmp(chunck,"inactive")){
+        drv.account_status = INACTIVE;
+    }else{
+        drv.account_status = ACIVE;
+    }
+
+
+    return drv;
+
+}
+
 void print_user(User sr){
 
     printf("username = %s, name = %s, gender=%d, birth_date = %d/%d/%d, account_date = %d/%d/%d, paymethod = %d, account_status = %d\n", 
@@ -118,6 +176,14 @@ int main(){
         
         User sr = parsing_user(str);
         print_user(sr);
+    }
+
+    FILE *fp2 = fopen("dataset1/drivers.csv", "r");
+    char str2[256];
+
+    fgets(str2, 256, fp2);  //ignore header
+    while(fgets(str2, 256, fp2)){
+        Driver dr = parsing_driver(str2);
     }
     
     return 0;
