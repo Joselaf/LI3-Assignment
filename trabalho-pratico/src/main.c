@@ -12,7 +12,7 @@ typedef enum accountStatus {
     INACTIVE = 1
 } AccountSatus;
 
-char* accountStatus_translation(int idx){
+char* accountStatus_translator(int idx){
     switch(idx){
         case 0 :
         return "active";
@@ -23,6 +23,8 @@ char* accountStatus_translation(int idx){
         break;
 
     }
+    return "invalido";
+
 }
 
 typedef enum gender{
@@ -175,7 +177,7 @@ void print_user(User sr){
         sr.account_creation.month, 
         sr.account_creation.year,
         sr.pay_method,
-       accountStatus_translation(sr.account_status));
+       accountStatus_translator(sr.account_status));
 
     return;
 }
