@@ -150,7 +150,7 @@ Driver parsing_driver( char* driver){
     chunck = strtok_r(NULL, ";", &rest);
     drv.account_creation = parsing_date(chunck);
 
-     chunck = strtok_r(NULL, ";", &rest);
+     chunck = strtok_r(NULL, "\n", &rest);
     if(!strcmp(chunck,"inactive")){
         drv.account_status = INACTIVE;
     }else{
