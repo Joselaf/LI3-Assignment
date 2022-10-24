@@ -8,9 +8,22 @@ typedef enum payMethod {
 } PayMethod;
 
 typedef enum accountStatus {
-    ACIVE = 0, 
+    ACTIVE = 0, 
     INACTIVE = 1
 } AccountSatus;
+
+char* accountStatus_translation(int idx){
+    switch(idx){
+        case 0 :
+        return "active";
+        break;
+
+        case 1 :
+        return "inactive";
+        break;
+
+    }
+}
 
 typedef enum gender{
     M = 0,
@@ -94,11 +107,11 @@ User parsing_user(char* userStr){
         user.pay_method = CREDIT_CARD;
     }
 
-    chunck = strtok_r(NULL, ";", &rest);
-    if(!strcmp(chunck,"inactive")){
-        user.account_status = INACTIVE;
+    chunck = strtok_r(NULL, "\n", &rest);
+    if(!strcmp(chunck,"active")){
+        user.account_status = ACTIVE;
     }else{
-        user.account_status = ACIVE;
+        user.account_status = INACTIVE;
     }
          
     return user;
@@ -141,7 +154,7 @@ Driver parsing_driver( char* driver){
     if(!strcmp(chunck,"inactive")){
         drv.account_status = INACTIVE;
     }else{
-        drv.account_status = ACIVE;
+        drv.account_status = ACTIVE;
     }
 
 
@@ -151,7 +164,7 @@ Driver parsing_driver( char* driver){
 
 void print_user(User sr){
 
-    printf("username = %s, name = %s, gender=%d, birth_date = %d/%d/%d, account_date = %d/%d/%d, paymethod = %d, account_status = %d\n", 
+    printf("username = %s, name = %s, gender=%d, birth_date = %d/%d/%d, account_date = %d/%d/%d, paymethod = %d, account_status = %s\n", 
         sr.username, 
         sr.name, 
         sr.gender, 
@@ -162,7 +175,7 @@ void print_user(User sr){
         sr.account_creation.month, 
         sr.account_creation.year,
         sr.pay_method,
-        sr.account_status);
+       accountStatus_translation(sr.account_status));
 
     return;
 }
