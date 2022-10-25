@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "glib-2.0/glib.h"
 
 typedef enum payMethod {
@@ -10,22 +11,7 @@ typedef enum payMethod {
 typedef enum accountStatus {
     ACTIVE = 0, 
     INACTIVE = 1
-} AccountSatus;
-
-char* accountStatus_translator(int idx){
-    switch(idx){
-        case 0 :
-        return "active";
-        break;
-
-        case 1 :
-        return "inactive";
-        break;
-
-    }
-    return "invalido";
-
-}
+} AccountStatus;
 
 typedef enum gender{
     M = 0,
@@ -45,21 +31,54 @@ typedef struct date{
     Date birth_date;
     Date account_creation;
     PayMethod pay_method;
-    AccountSatus account_status;
+    AccountStatus account_status;
 } User;
 
  typedef struct driver{
-    int id;
-    char name[64];
+    char id[16];
+    char name[32];
     Date birth_date;
     Gender gender;
-    char car_class[64];
-    char license_plate[64];
-    char city[64];
+    char car_class[16];
+    char license_plate[16];
+    char city[16];
     Date account_creation;
-    AccountSatus account_status;
+    AccountStatus account_status;
 
  } Driver;
+
+ typedef struct ride{
+    char id[16];
+    Date date;
+    char driver[16];
+    char user[32];
+    char city[16];
+    int distance;
+    int score_user;
+    int score_driver;
+    double tip;
+    char comment[128];
+
+} Ride;
+
+char* accountStatus_translator(AccountStatus status){
+    switch(status){
+        case ACTIVE:
+            return "active";
+
+        case INACTIVE:
+            return "inactive";
+    }
+}
+
+char Gender_translator(Gender g){
+    switch(g){
+        case M :
+            return 'M';
+        case F :
+            return 'F';
+    }
+}
 
 Date parsing_date(char* dateStr){
     Date date;
@@ -125,7 +144,7 @@ Driver parsing_driver( char* driver){
     char *rest = NULL;
 
     chunck = strtok_r(driver, ";", &rest);
-    drv.id = atoi(chunck);
+    strcpy(drv.id, chunck);
 
     chunck = strtok_r(NULL, ";", &rest);
     strcpy(drv.name, chunck);
@@ -164,12 +183,57 @@ Driver parsing_driver( char* driver){
 
 }
 
+Ride parsing_ride(char *ridestr){
+
+    Ride rd;
+    char *chunck;
+    char *rest = NULL;
+
+    chunck = strtok_r(ridestr, ";", &rest);
+    strcpy(rd.id, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    rd.date = parsing_date(chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    strcpy(rd.driver, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    strcpy(rd.user, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    strcpy(rd.city, chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    rd.distance = atoi(chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    rd.score_user = atoi(chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    rd.score_driver = atoi(chunck);
+
+    chunck = strtok_r(NULL, ";", &rest);
+    rd.tip = atof(chunck);
+
+    chunck = strtok_r(NULL, "\n", &rest);
+    if(chunck) {
+        strcpy(rd.comment, chunck);
+    } else {
+        rd.comment[0] = '\0';
+    }
+
+
+    return rd;
+
+}
+
 void print_user(User sr){
 
-    printf("username = %s, name = %s, gender=%d, birth_date = %d/%d/%d, account_date = %d/%d/%d, paymethod = %d, account_status = %s\n", 
+    printf("username = %s, name = %s, gender=%c, birth_date = %d/%d/%d, account_date = %d/%d/%d, paymethod = %d, account_status = %s\n", 
         sr.username, 
         sr.name, 
-        sr.gender, 
+        Gender_translator(sr.gender), 
         sr.birth_date.day, 
         sr.birth_date.month, 
         sr.birth_date.year, 
@@ -180,6 +244,25 @@ void print_user(User sr){
        accountStatus_translator(sr.account_status));
 
     return;
+}
+
+void print_driver(Driver drv){
+
+    printf("id = %s, name = %s, birth_day = %d/%d/%d, gender = %c, car_class = %s, license_plate = %s, city = %s, accou_creation = %d/%d/%d, account_status = %s \n ",
+    drv.id,
+    drv.name,
+    drv.birth_date.day,
+    drv.birth_date.month,
+    drv.birth_date.year,
+    Gender_translator(drv.gender),
+    drv.car_class,
+    drv.license_plate,
+    drv.city,
+    drv.account_creation.day,
+    drv.account_creation.month,
+    drv.account_creation.year,
+    accountStatus_translator(drv.account_status));
+
 }
 
 int main(){
@@ -199,7 +282,16 @@ int main(){
     fgets(str2, 256, fp2);  //ignore header
     while(fgets(str2, 256, fp2)){
         Driver dr = parsing_driver(str2);
+        print_driver(dr);
     }
-    
+
+    // FILE *fp3 = fopen("dataset1/rides.csv", "r");
+    // char str3[256];
+
+    // fgets(str3, 256, fp3); //ignore header
+    // while(fgets(str3, 256, fp3)){
+    //     Ride rd = parsing_ride(str3);
+    // }
+
     return 0;
 }
