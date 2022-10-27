@@ -71,6 +71,16 @@ char* accountStatus_translator(AccountStatus status){
     }
 }
 
+char* pay_mathod_translator(PayMethod method){
+    switch(method){
+        case CASH:
+            return "cash";
+
+        case CREDIT_CARD:
+            return"credit_card";
+    }
+}
+
 char Gender_translator(Gender g){
     switch(g){
         case M :
@@ -138,12 +148,12 @@ User parsing_user(char* userStr){
     return user;
 }
 
-Driver parsing_driver( char* driver){
+Driver parsing_driver( char* driverStr){
     Driver drv;
     char *chunck;
     char *rest = NULL;
 
-    chunck = strtok_r(driver, ";", &rest);
+    chunck = strtok_r(driverStr, ";", &rest);
     strcpy(drv.id, chunck);
 
     chunck = strtok_r(NULL, ";", &rest);
@@ -183,13 +193,13 @@ Driver parsing_driver( char* driver){
 
 }
 
-Ride parsing_ride(char *ridestr){
+Ride parsing_ride(char *rideStr){
 
     Ride rd;
     char *chunck;
     char *rest = NULL;
 
-    chunck = strtok_r(ridestr, ";", &rest);
+    chunck = strtok_r(rideStr, ";", &rest);
     strcpy(rd.id, chunck);
 
     chunck = strtok_r(NULL, ";", &rest);
@@ -230,7 +240,7 @@ Ride parsing_ride(char *ridestr){
 
 void print_user(User sr){
 
-    printf("username = %s, name = %s, gender=%c, birth_date = %d/%d/%d, account_date = %d/%d/%d, paymethod = %d, account_status = %s\n", 
+    printf("username = %s, name = %s, gender=%c, birth_date = %d/%d/%d, account_date = %d/%d/%d, paymethod = %s, account_status = %s\n", 
         sr.username, 
         sr.name, 
         Gender_translator(sr.gender), 
@@ -240,7 +250,7 @@ void print_user(User sr){
         sr.account_creation.day, 
         sr.account_creation.month, 
         sr.account_creation.year,
-        sr.pay_method,
+        pay_mathod_translator(sr.pay_method),
        accountStatus_translator(sr.account_status));
 
     return;
@@ -265,33 +275,52 @@ void print_driver(Driver drv){
 
 }
 
+void print_ride(Ride rd){
+printf("id = %s, date = %d/%d/%d, driver = %s, city = %s,  distance = %d, score_user = %d, score_driver = %d, tip = %f, comment = %s \n",
+rd.id,
+rd.date.day,
+rd.date.month,
+rd.date.year,
+rd.driver,
+rd.city,
+rd.distance,
+rd.score_user,
+rd.score_driver,
+rd.tip,
+rd.comment);
+
+
+}
+
+
 int main(){
-    FILE *fp = fopen("dataset1/users.csv", "r");
-    char str[256];
+    // FILE *fp = fopen("dataset1/users.csv", "r");
+    // char str[256];
 
-    fgets(str, 256, fp); // Ignore header
-    while(fgets(str, 256, fp)){
+    // fgets(str, 256, fp); // Ignore header
+    // while(fgets(str, 256, fp)){
         
-        User sr = parsing_user(str);
-        print_user(sr);
-    }
-
-    FILE *fp2 = fopen("dataset1/drivers.csv", "r");
-    char str2[256];
-
-    fgets(str2, 256, fp2);  //ignore header
-    while(fgets(str2, 256, fp2)){
-        Driver dr = parsing_driver(str2);
-        print_driver(dr);
-    }
-
-    // FILE *fp3 = fopen("dataset1/rides.csv", "r");
-    // char str3[256];
-
-    // fgets(str3, 256, fp3); //ignore header
-    // while(fgets(str3, 256, fp3)){
-    //     Ride rd = parsing_ride(str3);
+    //     User sr = parsing_user(str);
+    //     // print_user(sr);
     // }
+
+    // FILE *fp2 = fopen("dataset1/drivers.csv", "r");
+    // char str2[256];
+
+    // fgets(str2, 256, fp2);  //ignore header
+    // while(fgets(str2, 256, fp2)){
+    //     Driver dr = parsing_driver(str2);
+    //     // print_driver(dr);
+    // }
+
+    FILE *fp3 = fopen("dataset1/rides.csv", "r");
+    char str3[256];
+
+    fgets(str3, 256, fp3); //ignore header
+    while(fgets(str3, 256, fp3)){
+        Ride rd = parsing_ride(str3);
+        print_ride(rd);
+    }
 
     return 0;
 }
