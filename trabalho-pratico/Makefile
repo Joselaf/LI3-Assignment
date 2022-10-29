@@ -1,8 +1,8 @@
 all: programa-principal
 
 
-programa-principal: obj/programa-principal.o
-		gcc -g obj/programa-principal.o obj/common.o obj/user.o obj/driver.o obj/ride.o -lglib-2.0 -o programa-principal
+programa-principal: obj/programa-principal.o obj/common.o obj/user.o obj/driver.o obj/ride.o obj/cat_users.o
+		gcc -g obj/programa-principal.o obj/common.o obj/user.o obj/driver.o obj/ride.o obj/cat_users.o -lglib-2.0 -o programa-principal
 
 
 
@@ -18,7 +18,10 @@ obj/ride.o: src/ride.c src/ride.h obj/common.o
 obj/driver.o: src/driver.c src/driver.h obj/common.o
 		gcc -Wall -g -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -c src/driver.c -o obj/driver.o
 
-obj/programa-principal.o: src/main.c  obj/common.o obj/user.o obj/driver.o obj/ride.o
+obj/cat_users.o: src/cat_users.c src/cat_users.h obj/common.o
+		gcc -Wall -g -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -c src/cat_users.c -o obj/cat_users.o
+
+obj/programa-principal.o: src/main.c
 		gcc -Wall -g -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -c src/main.c -o obj/programa-principal.o
 
 clean:

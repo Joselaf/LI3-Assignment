@@ -27,10 +27,10 @@ User parsing_user(char* userStr){
     user.account_creation = parsing_date(chunck);
 
     chunck = strtok_r(NULL, ";", &rest);
-    if(strcmp(chunck, "cash")){
+    if(!strcmp(chunck, "cash")){
         user.pay_method = CASH;
 
-    }else if(strcmp(chunck, "credit_card")){
+    }else if(!strcmp(chunck, "credit_card")){
         user.pay_method = CREDIT_CARD;
 
     }else{
