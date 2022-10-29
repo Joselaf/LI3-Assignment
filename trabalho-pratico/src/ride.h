@@ -4,24 +4,34 @@
 #include "common.h"
 
 
- typedef struct ride{
-    char id[16];
-    Date date;
-    char driver[16];
-    char user[32];
-    char city[16];
-    int distance;
-    int score_user;
-    int score_driver;
-    double tip;
-    char comment[128];
-
-} Ride;
+typedef struct ride* Ride;
 
 
 Ride parsing_ride(char *rideStr);
 
 void print_ride(Ride rd);
+
+void free_ride(Ride rd);
+
+Ride clone_ride(Ride original);
+
+// char* get_id(Ride rd);
+
+// Date get_date(Ride rd);
+
+// char* get_driver(Ride rd);
+
+// char* get_user(Ride rd):
+
+// char* get_city(Ride rd);
+
+// int get_distance(Rid rd);
+
+// int get_score_user(Ride rd);
+
+// int get_score_driver(Ride rd);
+
+// double get_tip
 
 #endif
 

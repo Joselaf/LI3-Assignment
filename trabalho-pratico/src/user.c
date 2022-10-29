@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct user {
+struct user {
     char username[64];
     char name[64];
     Gender gender;

@@ -3,7 +3,7 @@
 #include "glib-2.0/glib.h"
 
 
-typedef struct cat_users{
+struct cat_users{
     GHashTable *users;
 };
 

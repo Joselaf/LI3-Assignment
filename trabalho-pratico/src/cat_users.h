@@ -1,5 +1,5 @@
-#ifndef CAT_USRS_H
-#define CAT_USRS_H
+#ifndef CAT_USERS_H
+#define CAT_USERS_H
 
 #include "user.h"
 
