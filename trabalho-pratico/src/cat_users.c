@@ -26,16 +26,10 @@ CatUsers new_cat_users(){
 }
 
 void add_user(User user, CatUsers cat){
-    User *user_ptr = malloc(sizeof(User));
-    memcpy(user_ptr, &user, sizeof(User));
-    g_hash_table_insert(cat->users,strdup(user.username), user_ptr);
+    
+    g_hash_table_insert(cat->users, get_username(user), clone_user(user));
 }
 
 User get_user(CatUsers cat, char* username){
-    User u;
-
-    u = *(User*)g_hash_table_lookup(cat->users,username);
-
-    return u;
-
+    return g_hash_table_lookup(cat->users,username);
 }

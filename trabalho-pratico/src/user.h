@@ -3,19 +3,17 @@
 
 #include "common.h"
 
-typedef struct user {
-    char username[64];
-    char name[64];
-    Gender gender;
-    Date birth_date;
-    Date account_creation;
-    PayMethod pay_method;
-    AccountStatus account_status;
-} User;
+typedef struct user* User;
 
 
 User parsing_user(char* userStr);
 
 void print_user(User sr);
+
+void free_user(User usr);
+
+User clone_user(User original);
+
+char* get_username(User sr);
 
 #endif 

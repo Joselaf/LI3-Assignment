@@ -19,11 +19,10 @@ int main(){
         
         User sr = parsing_user(str);
         add_user(sr, cat_users);
-
-        // print_user(sr);
+        free_user(sr);
     }
 
-    User u = get_user(cat_users, "SMartins");
+    User u = get_user(cat_users, "DiniAndrade17");
 
     print_user(u);
 
