@@ -25,11 +25,11 @@ CatUsers new_cat_users(){
     return users;
 }
 
-void add_user(User user, CatUsers cat){
+void user_add(User user, CatUsers cat){
     
-    g_hash_table_insert(cat->users, get_username(user), clone_user(user));
+    g_hash_table_insert(cat->users, user_get_username(user), user_clone(user));
 }
 
-User get_user(CatUsers cat, char* username){
+User user_get(CatUsers cat, char* username){
     return g_hash_table_lookup(cat->users,username);
 }

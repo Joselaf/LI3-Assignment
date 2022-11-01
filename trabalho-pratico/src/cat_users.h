@@ -9,9 +9,9 @@ typedef struct cat_users* CatUsers;
 
 CatUsers new_cat_users();
 
-void add_user(User user, CatUsers cat);
+void user_add(User user, CatUsers cat);
 
-User get_user(CatUsers cat, char* username);
+User user_get(CatUsers cat, char* username);
 
 void free_cat_users();
 

@@ -7,9 +7,9 @@ typedef struct cat_rides* CatRides;
 
 CatRides new_cat_rides();
 
-void add_ride(Ride rd, CatRides cat);
+void ride_add(Ride rd, CatRides cat);
 
-Ride get_ride(CatRides cat, char* id);
+Ride ride_get(CatRides cat, char* id);
 
 
 

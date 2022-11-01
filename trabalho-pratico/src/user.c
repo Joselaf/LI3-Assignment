@@ -14,7 +14,7 @@ struct user {
 } ;
 
 
-User parsing_user(char* userStr){
+User user_parsing(char* userStr){
     User user = malloc(sizeof(struct user));
     char *chunck;
     char *rest = NULL;
@@ -59,7 +59,7 @@ User parsing_user(char* userStr){
     return user;
 }
 
-void print_user(User sr){
+void user_print(User sr){
     if(sr == NULL){
         printf("NULL user\n");
     }else{
@@ -79,11 +79,11 @@ void print_user(User sr){
     }
 
 }
- void free_user(User usr){
+ void user_free(User usr){
       free(usr);
  }
 
- User clone_user(User original){
+ User user_clone(User original){
     User copy = malloc(sizeof(struct user));
 
     memcpy(copy,original, sizeof(struct user));
@@ -91,6 +91,6 @@ void print_user(User sr){
     return copy;
  }
 
- char* get_username(User sr){
+ char* user_get_username(User sr){
     return strdup(sr->username);
  }

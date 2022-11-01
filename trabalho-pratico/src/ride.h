@@ -7,15 +7,15 @@
 typedef struct ride* Ride;
 
 
-Ride parsing_ride(char *rideStr);
+Ride ride_parsing(char *rideStr);
 
-void print_ride(Ride rd);
+void ride_print(Ride rd);
 
-void free_ride(Ride rd);
+void ride_free(Ride rd);
 
-Ride clone_ride(Ride original);
+Ride ride_clone(Ride original);
 
-char* get_id_ride(Ride rd);
+char* ride_get_id(Ride rd);
 
 
 #endif

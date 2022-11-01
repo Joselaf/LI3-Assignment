@@ -15,10 +15,10 @@ CatRides new_cat_rides(){
     return rides;
 }
 
-void add_ride (Ride rd, CatRides cat){
-    g_hash_table_insert(cat -> rides, get_id_ride(rd), clone_ride(rd));
+void ride_add (Ride rd, CatRides cat){
+    g_hash_table_insert(cat -> rides, ride_get_id(rd), ride_clone(rd));
 }
 
-Ride get_ride(CatRides cat, char* id){
+Ride ride_get(CatRides cat, char* id){
     return g_hash_table_lookup(cat -> rides, id);
 }

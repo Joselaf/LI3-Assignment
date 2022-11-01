@@ -19,7 +19,7 @@ struct driver{
 
 
 
-Driver parsing_driver( char* driverStr){
+Driver driver_parsing( char* driverStr){
     Driver drv = malloc(sizeof(struct driver));
     char *chunck;
     char *rest = NULL;
@@ -64,7 +64,7 @@ Driver parsing_driver( char* driverStr){
 
 }
 
-void print_driver(Driver drv){
+void driver_print(Driver drv){
 
     if(drv == NULL){
         printf("NULL driver\n");
@@ -90,11 +90,11 @@ void print_driver(Driver drv){
 
 }
 
-void free_driver(Driver drv){
+void driver_free(Driver drv){
         free(drv);
 }
 
-Driver clone_driver (Driver original){
+Driver driver_clone(Driver original){
     Driver copy = malloc(sizeof(struct driver));
 
     memcpy(copy, original, sizeof(struct driver));

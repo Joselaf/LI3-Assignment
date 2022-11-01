@@ -19,14 +19,14 @@ int main(){
     fgets(str, 256, fp); // Ignore header
     while(fgets(str, 256, fp)){
         
-        User sr = parsing_user(str);
-        add_user(sr, cat_users);
-        free_user(sr);
+        User sr = user_parsing(str);
+        user_add(sr, cat_users);
+        user_free(sr);
     }
 
-    User u = get_user(cat_users, "SMartins");
+    User u = user_get(cat_users, "SMartins");
 
-    print_user(u);
+    user_print(u);
 
     FILE *fp2 = fopen("dataset1/drivers.csv", "r");
     char str2[256];
@@ -34,14 +34,14 @@ int main(){
 
     fgets(str2, 256, fp2);  //ignore header
     while(fgets(str2, 256, fp2)){
-        Driver dr = parsing_driver(str2);
-       add_driver(dr, cat_drivers);
-        free_driver(dr);
+        Driver dr = driver_parsing(str2);
+       driver_add(dr, cat_drivers);
+        driver_free(dr);
     }
 
-    Driver drv = get_driver(cat_drivers, "000000009967");
+    Driver drv = driver_get(cat_drivers, "000000009967");
 
-    print_driver(drv);
+    driver_print(drv);
 
     FILE *fp3 = fopen("dataset1/rides.csv", "r");
     char str3[256];
@@ -49,13 +49,13 @@ int main(){
 
     fgets(str3, 256, fp3); //ignore header
     while(fgets(str3, 256, fp3)){
-        Ride rd = parsing_ride(str3);
-        add_ride(rd, cat_rides);
-        free_ride(rd);
+        Ride rd = ride_parsing(str3);
+        ride_add(rd, cat_rides);
+        ride_free(rd);
     }
-        Ride rd = get_ride(cat_rides, "000000000002");
+        Ride rd = ride_get(cat_rides, "000000000002");
 
-        print_ride(rd);
+        ride_print(rd);
 
     return 0;
 }

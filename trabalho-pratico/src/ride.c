@@ -18,7 +18,7 @@ struct ride{
 
 };
 
-Ride parsing_ride(char *rideStr){
+Ride ride_parsing(char *rideStr){
     Ride rd = malloc(sizeof(struct ride));
     char *chunck;
     char *rest = NULL;
@@ -62,7 +62,7 @@ Ride parsing_ride(char *rideStr){
 
 }
 
-void print_ride(Ride rd){
+void ride_print(Ride rd){
 
     printf("id = %s, date = %d/%d/%d, driver = %s, city = %s,  distance = %d, score_user = %d, score_driver = %d, tip = %f, comment = %s \n",
         rd -> id,
@@ -78,11 +78,11 @@ void print_ride(Ride rd){
         rd -> comment);
 }
 
-void free_ride(Ride rd){
+void ride_free(Ride rd){
     free(rd);
 }
 
-Ride clone_ride(Ride original){
+Ride ride_clone(Ride original){
     Ride copy = malloc(sizeof(struct ride));
 
     memcpy(copy, original, sizeof(struct ride));
@@ -91,6 +91,6 @@ Ride clone_ride(Ride original){
 }
 
 
-char* get_id_ride(Ride rd){
+char* ride_get_id(Ride rd){
     return strdup(rd -> id);
 }

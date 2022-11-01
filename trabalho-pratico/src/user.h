@@ -6,14 +6,14 @@
 typedef struct user* User;
 
 
-User parsing_user(char* userStr);
+User user_parsing(char* userStr);
 
-void print_user(User sr);
+void user_print(User sr);
 
-void free_user(User usr);
+void user_free(User usr);
 
-User clone_user(User original);
+User user_clone(User original);
 
-char* get_username(User sr);
+char* user_get_username(User sr);
 
 #endif 

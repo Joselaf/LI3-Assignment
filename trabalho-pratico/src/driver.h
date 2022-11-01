@@ -6,13 +6,13 @@
 typedef struct driver* Driver;
 
 
- Driver parsing_driver( char* driverStr);
+ Driver driver_parsing( char* driverStr);
 
- void print_driver(Driver drv);
+ void driver_print(Driver drv);
 
- void free_driver(Driver drv);
+ void driver_free(Driver drv);
 
-Driver clone_driver(Driver original);
+Driver driver_clone(Driver original);
 
 char* driver_get_id(Driver drv);
 

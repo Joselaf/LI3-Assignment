@@ -9,10 +9,10 @@ typedef struct cat_drivers* CatDrivers;
 
 CatDrivers new_cat_driver();
 
-void add_driver(Driver driver, CatDrivers cat);
+void driver_add(Driver driver, CatDrivers cat);
 
 
-Driver get_driver(CatDrivers cat, char* id);
+Driver driver_get(CatDrivers cat, char* id);
 
 
 
