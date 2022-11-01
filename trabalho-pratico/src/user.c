@@ -94,3 +94,18 @@ void user_print(User sr){
  char* user_get_username(User sr){
     return strdup(sr->username);
  }
+
+ char* user_get_gender(User sr){
+    switch (sr->gender)
+    {
+    case M:
+        return strdup("M");
+        break;
+    case F:
+        return strdup("F");
+        break;
+    default:
+        return strdup("I");
+        break;
+    }
+ }

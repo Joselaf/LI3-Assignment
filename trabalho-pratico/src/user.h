@@ -16,4 +16,6 @@ User user_clone(User original);
 
 char* user_get_username(User sr);
 
+char* user_get_gender(User sr);
+
 #endif 

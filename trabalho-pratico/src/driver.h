@@ -16,6 +16,8 @@ Driver driver_clone(Driver original);
 
 char* driver_get_id(Driver drv);
 
+char* driver_get_gender(Driver drv);
+
 
 
 #endif

@@ -69,7 +69,7 @@ void driver_print(Driver drv){
     if(drv == NULL){
         printf("NULL driver\n");
     }else{
-        printf("id = %s, name = %s, birth_day = %d/%d/%d, gender = %c, car_class = %s, license_plate = %s, city = %s, accou_creation = %d/%d/%d, account_status = %s \n ",
+        printf("id = %s, name = %s, birth_day = %d/%d/%d, gender = %c, car_class = %s, license_plate = %s, city = %s, accou_creation = %d/%d/%d, account_status = %s \n",
             drv -> id,
             drv -> name,
             drv -> birth_date. day,
@@ -105,4 +105,19 @@ Driver driver_clone(Driver original){
 
 char* driver_get_id(Driver drv){
     return strdup(drv -> id);
+}
+
+char* driver_get_gender(Driver drv){
+    switch (drv->gender)
+    {
+    case M:
+        return strdup("M");
+        break;
+    case F:
+        return strdup("F");
+        break;
+    default:
+    return strdup("I");
+        break;
+    }
 }
