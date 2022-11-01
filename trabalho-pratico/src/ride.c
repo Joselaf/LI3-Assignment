@@ -90,3 +90,7 @@ Ride clone_ride(Ride original){
     return copy;
 }
 
+
+char* get_id_ride(Ride rd){
+    return strdup(rd -> id);
+}

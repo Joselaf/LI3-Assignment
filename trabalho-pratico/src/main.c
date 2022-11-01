@@ -7,6 +7,7 @@
 #include "ride.h"
 #include "cat_users.h"
 #include "cat_drivers.h"
+#include "cat_rides.h"
 
 
 
@@ -23,9 +24,9 @@ int main(){
         free_user(sr);
     }
 
-    // User u = get_user(cat_users, "DiniAndrade17");
+    User u = get_user(cat_users, "SMartins");
 
-    // print_user(u);
+    print_user(u);
 
     FILE *fp2 = fopen("dataset1/drivers.csv", "r");
     char str2[256];
@@ -42,14 +43,19 @@ int main(){
 
     print_driver(drv);
 
-    // FILE *fp3 = fopen("dataset1/rides.csv", "r");
-    // char str3[256];
+    FILE *fp3 = fopen("dataset1/rides.csv", "r");
+    char str3[256];
+    CatRides cat_rides = new_cat_rides();
 
-    // fgets(str3, 256, fp3); //ignore header
-    // while(fgets(str3, 256, fp3)){
-    //     Ride rd = parsing_ride(str3);
-    //     // print_ride(rd);
-    // }
+    fgets(str3, 256, fp3); //ignore header
+    while(fgets(str3, 256, fp3)){
+        Ride rd = parsing_ride(str3);
+        add_ride(rd, cat_rides);
+        free_ride(rd);
+    }
+        Ride rd = get_ride(cat_rides, "000000000002");
+
+        print_ride(rd);
 
     return 0;
 }

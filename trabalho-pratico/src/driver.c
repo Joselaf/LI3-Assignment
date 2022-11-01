@@ -103,6 +103,6 @@ Driver clone_driver (Driver original){
 }
 
 
-char* get_id(Driver drv){
+char* driver_get_id(Driver drv){
     return strdup(drv -> id);
 }

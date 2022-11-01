@@ -17,9 +17,9 @@ CatDrivers new_cat_driver(){
 }
 
 void add_driver(Driver drv,CatDrivers cat){
-    g_hash_table_insert(cat -> drivers, get_id(drv), clone_driver(drv));
+    g_hash_table_insert(cat -> drivers, driver_get_id(drv), clone_driver(drv));
 }
 
-Driver get_driver(CatDrivers cat , char* name){
-    return g_hash_table_lookup(cat -> drivers, name);
+Driver get_driver(CatDrivers cat , char* id){
+    return g_hash_table_lookup(cat -> drivers, id);
 }

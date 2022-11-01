@@ -15,23 +15,8 @@ void free_ride(Ride rd);
 
 Ride clone_ride(Ride original);
 
-// char* get_id(Ride rd);
+char* get_id_ride(Ride rd);
 
-// Date get_date(Ride rd);
-
-// char* get_driver(Ride rd);
-
-// char* get_user(Ride rd):
-
-// char* get_city(Ride rd);
-
-// int get_distance(Rid rd);
-
-// int get_score_user(Ride rd);
-
-// int get_score_driver(Ride rd);
-
-// double get_tip
 
 #endif
 
