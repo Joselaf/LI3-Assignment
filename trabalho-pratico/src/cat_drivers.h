@@ -11,8 +11,10 @@ CatDrivers new_cat_driver();
 
 void driver_add(Driver driver, CatDrivers cat);
 
+Driver cat_drivers_get_driver(CatDrivers cat , char* id);
 
-Driver driver_get(CatDrivers cat, char* id);
+CarClass cat_driver_get_class(CatDrivers cat, char*id);
+
 
 
 

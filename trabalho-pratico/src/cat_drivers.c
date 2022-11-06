@@ -20,6 +20,11 @@ void driver_add(Driver drv,CatDrivers cat){
     g_hash_table_insert(cat -> drivers, driver_get_id(drv), driver_clone(drv));
 }
 
-Driver driver_get(CatDrivers cat , char* id){
+Driver cat_drivers_get_driver(CatDrivers cat , char* id){
     return g_hash_table_lookup(cat -> drivers, id);
+}
+
+CarClass cat_driver_get_class(CatDrivers cat, char*id){
+    Driver r =(g_hash_table_lookup(cat -> drivers, id) );
+    return driver_get_car_class(r);
 }

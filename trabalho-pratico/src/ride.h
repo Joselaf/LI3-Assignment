@@ -17,6 +17,15 @@ Ride ride_clone(Ride original);
 
 char* ride_get_id(Ride rd);
 
+char* ride_get_driver(Ride rd);
+
+char* ride_get_user(Ride rd);
+
+int ride_get_distance(Ride rd);
+
+double ride_get_score_user(Ride rd);
+
+double ride_get_score_driver(Ride rd);
 
 #endif
 

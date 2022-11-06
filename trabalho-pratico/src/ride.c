@@ -94,3 +94,28 @@ Ride ride_clone(Ride original){
 char* ride_get_id(Ride rd){
     return strdup(rd -> id);
 }
+
+char* ride_get_driver(Ride rd){
+    return strdup(rd -> driver);
+}
+
+char* ride_get_user(Ride rd){
+    return strdup(rd -> user);
+}
+
+int ride_get_distance(Ride rd){
+    return(rd -> distance);
+}
+
+
+double ride_get_tip(Ride rd){
+    return(rd -> tip);
+}
+
+double ride_get_score_user(Ride rd){
+    return(rd -> score_user);
+}
+
+double ride_get_score_driver(Ride rd){
+    return(rd -> score_driver);
+}

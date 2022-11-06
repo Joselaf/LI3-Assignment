@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "stats.h"
 #include <string.h>
 #include "glib-2.0/glib.h"
@@ -46,25 +47,46 @@ void stats_results_add_cell(Results res, char* cell){
     g_array_append_val(last.cells, cell);
 }
 
+void stats_results_add_cell_double(Results res, double value){
+ char str[32];
+ sprintf(str, "%.3f", value);
+ stats_results_add_cell(res, strdup(str));
+}
+
+void stats_resuts_add_cell_int(Results res, int value){
+    char str[10];
+    sprintf(str, "%d", value);
+    stats_results_add_cell(res, strdup(str));
+}
+
 char* stats_results_get_cell(Results res, int rowIdx, int colIdx){
     struct row r = g_array_index(res -> row, struct row, rowIdx);
-    char * cell = g_array_index(r.cells, char*, colIdx );
+    char *cell = g_array_index(r.cells, char*, colIdx );
     return strdup(cell);
 }
 
 Results Q1_get_user_or_driver(Stats s, char* id){
     Results resp = stats_result_new();
 
-    if((user_get(s->cat_users, id)) != NULL){
+    if((cat_users_get_user(s->cat_users, id)) != NULL){
         stats_results_add_row(resp);
-        User u = user_get(s->cat_users, id);
+        User u = cat_users_get_user(s->cat_users, id);
         stats_results_add_cell(resp,user_get_username(u));
         stats_results_add_cell(resp, user_get_gender(u));
+        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_age(s -> cat_rides, id));
+        stats_results_add_cell_double(resp, user_or_driver_stats_get_avarage_rating(s -> cat_rides, id));
+        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_nr_viagens(s -> cat_rides, id));
+        stats_results_add_cell_double(resp, user_or_driver_stats_get_total(s -> cat_rides, id));
     }else{
         stats_results_add_row(resp);
-        Driver dr = driver_get(s->cat_drivers, id);
+        Driver dr = cat_drivers_get_driver(s->cat_drivers, id);
         stats_results_add_cell(resp,driver_get_id(dr));
         stats_results_add_cell(resp,driver_get_gender(dr));
+        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_age(s -> cat_rides, id));
+        stats_results_add_cell_double(resp, user_or_driver_stats_get_avarage_rating(s -> cat_rides, id));
+        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_nr_viagens(s -> cat_rides, id));
+        stats_results_add_cell_double(resp, user_or_driver_stats_get_total(s -> cat_rides, id));
+
     }
     return resp;
 

@@ -9,7 +9,7 @@ struct driver{
     char name[32];
     Date birth_date;
     Gender gender;
-    char car_class[16];
+    CarClass car_class;
     char license_plate[16];
     char city[16];
     Date account_creation;
@@ -41,11 +41,21 @@ Driver driver_parsing( char* driverStr){
     }
 
     chunck = strtok_r(NULL, ";", &rest);
-    strcpy(drv -> car_class, chunck);
+   if(!strcmp(chunck, "basic")){
+        drv -> car_class = BASIC;
+   }
+   if(!strcmp(chunck ,"green")){
+     drv -> car_class = GREEN;
+   }
+   if(!strcmp(chunck, "premium") ){
+        drv -> car_class = PREMIUM;
+   }
 
-    chunck = strtok_r(NULL, ";", &rest);
-    strcpy(drv -> license_plate, chunck);
+   chunck = strtok_r(NULL, ";", &rest);
+   strcpy(drv ->license_plate, chunck);
 
+
+   
     chunck = strtok_r(NULL, ";", &rest);
     strcpy(drv -> city, chunck);
 
@@ -76,7 +86,7 @@ void driver_print(Driver drv){
             drv -> birth_date.month,
             drv -> birth_date.year,
             Gender_translator(drv -> gender),
-            drv -> car_class,
+            car_class_translator(drv -> car_class),
             drv -> license_plate,
             drv -> city,
             drv -> account_creation.day,
@@ -120,4 +130,12 @@ char* driver_get_gender(Driver drv){
     return strdup("I");
         break;
     }
+}
+
+CarClass driver_get_car_class(Driver drv){
+    return(drv -> car_class);
+}
+
+Date driver_get_birth(Driver drv){
+    return(drv -> birth_date);
 }

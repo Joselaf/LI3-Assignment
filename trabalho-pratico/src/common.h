@@ -1,6 +1,12 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+typedef enum carClass{
+    BASIC = 0,
+    GREEN = 1,
+    PREMIUM = 2
+} CarClass;
+
 typedef enum accountStatus {
     ACTIVE = 0, 
     INACTIVE = 1
@@ -30,5 +36,7 @@ Date parsing_date(char* dateStr);
 char* pay_mathod_translator(PayMethod method);
 
 char Gender_translator(Gender g);
+
+char* car_class_translator(CarClass class);
 
 #endif

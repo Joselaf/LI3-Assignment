@@ -18,4 +18,6 @@ char* user_get_username(User sr);
 
 char* user_get_gender(User sr);
 
+Date user_get_birth(User sr);
+
 #endif 

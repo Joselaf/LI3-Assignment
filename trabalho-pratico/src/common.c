@@ -55,3 +55,18 @@ char Gender_translator(Gender g){
 
 }
 
+char* car_class_translator(CarClass class){
+    switch (class)
+    {
+    case BASIC:
+        return "basic";
+        break;
+    case GREEN:
+        return "green";
+        break;
+    case PREMIUM:
+        return "premium";
+        break;
+    }
+}
+

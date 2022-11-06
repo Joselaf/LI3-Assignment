@@ -40,10 +40,6 @@ int main(){
         driver_free(dr);
     }
 
-    Driver drv = driver_get(cat_drivers, "000000009967");
-
-    driver_print(drv);
-
     FILE *fp3 = fopen("dataset1/rides.csv", "r");
     char str3[256];
     CatRides cat_rides = new_cat_rides();
@@ -51,7 +47,8 @@ int main(){
     fgets(str3, 256, fp3); //ignore header
     while(fgets(str3, 256, fp3)){
         Ride rd = ride_parsing(str3);
-        ride_add(rd, cat_rides);
+        ride_add(rd, cat_rides, cat_drivers, cat_users);
+
         ride_free(rd);
     }
         // Ride rd = ride_get(cat_rides, "000000000002");
@@ -61,12 +58,15 @@ int main(){
     
     Stats s = stats_new(cat_users, cat_drivers, cat_rides);
 
-    Results res = Q1_get_user_or_driver( s, "000000009967" );
+    Results res = Q1_get_user_or_driver( s, "MiTeixeira" );
 
 
 
     // puts(stats_results_get_cell(res, 0, 0));
-   printf("username = %s, gender = %s\n", stats_results_get_cell(res, 0, 0), stats_results_get_cell(res, 0,1));
+    printf("username = %s, gender = %s, idade = %s, avarage_rating = %s, nr_viagens = %s, total = %s\n", stats_results_get_cell(res, 0, 0), stats_results_get_cell(res, 0,1), stats_results_get_cell(res, 0, 2), stats_results_get_cell(res, 0, 3), stats_results_get_cell(res, 0, 4), stats_results_get_cell(res, 0, 5));
+
+    // printf("avaliacao = %f", user_stats_get_avalicao_media(cat_rides, "AMatias"));
+
 
 
     return 0;

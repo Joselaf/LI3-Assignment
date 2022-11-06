@@ -109,3 +109,7 @@ void user_print(User sr){
         break;
     }
  }
+
+Date user_get_birth(User sr){
+    return sr ->birth_date;
+} 

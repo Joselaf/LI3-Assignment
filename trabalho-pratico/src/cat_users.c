@@ -30,6 +30,6 @@ void user_add(User user, CatUsers cat){
     g_hash_table_insert(cat->users, user_get_username(user), user_clone(user));
 }
 
-User user_get(CatUsers cat, char* username){
+User cat_users_get_user(CatUsers cat, char* username){
     return g_hash_table_lookup(cat->users,username);
 }

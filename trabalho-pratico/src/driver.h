@@ -18,6 +18,10 @@ char* driver_get_id(Driver drv);
 
 char* driver_get_gender(Driver drv);
 
+CarClass driver_get_car_class(Driver drv);
+
+Date driver_get_birth(Driver drv);
+
 
 
 #endif
