@@ -98,7 +98,7 @@ Results Q2_get_N_drivers( Stats s, int n_drivers){
    GArray *drivers_ids = get_top_drivers(s -> cat_rides);
 
     Results res = stats_result_new();
-    
+
 
         for(int i = 0; i < n_drivers; i++){
             stats_results_add_row(res);
@@ -123,6 +123,28 @@ Results Q4_get_avarage_price_city( Stats s, char* city){
 
     return res;
 
+}
+
+void print_table(Results res, FILE *file){
+    int n_rows = res ->row ->len;
+
+    for(int i = 0; i < n_rows; i++){
+        print_row(res, file, i);
+    }
+
+}
+
+void print_row(Results res, FILE *file, int row){
+    struct row r = g_array_index(res -> row, struct row, row);
+
+    for(int i = 0; i < r.cells -> len ; i++){
+        if(i == r.cells -> len - 1){
+            fprintf(file, "%s", g_array_index(r.cells, char*, i));
+        }else{
+            fprintf(file, "%s;", g_array_index(r.cells, char*, i));
+        }
+    }
+    fprintf(file, "\n");
 }
 
 

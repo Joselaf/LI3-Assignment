@@ -59,10 +59,7 @@ int main(){
     Stats s = stats_new(cat_users, cat_drivers, cat_rides);
 
     Results res = Q2_get_N_drivers(s, 10);
-
-    for(int i = 0; i < 10; i++){
-        printf("id = %s, nome = %s, avaliacao_media = %s \n", stats_results_get_cell(res, i, 0), stats_results_get_cell(res, i, 1), stats_results_get_cell(res, i, 2));
-    }
+    print_table(res, stdout);
 
 
 
