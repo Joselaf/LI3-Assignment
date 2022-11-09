@@ -58,14 +58,9 @@ int main(){
     
     Stats s = stats_new(cat_users, cat_drivers, cat_rides);
 
-    Results res = Q1_get_user_or_driver( s, "MiTeixeira" );
+    Results res = Q4_get_avarage_price_city(s, "Setúbal");
 
-
-
-    // puts(stats_results_get_cell(res, 0, 0));
-    printf("username = %s, gender = %s, idade = %s, avarage_rating = %s, nr_viagens = %s, total = %s\n", stats_results_get_cell(res, 0, 0), stats_results_get_cell(res, 0,1), stats_results_get_cell(res, 0, 2), stats_results_get_cell(res, 0, 3), stats_results_get_cell(res, 0, 4), stats_results_get_cell(res, 0, 5));
-
-    // printf("avaliacao = %f", user_stats_get_avalicao_media(cat_rides, "AMatias"));
+    printf("%s", stats_results_get_cell(res,0,0));
 
 
 

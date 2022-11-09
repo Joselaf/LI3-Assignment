@@ -119,3 +119,7 @@ double ride_get_score_user(Ride rd){
 double ride_get_score_driver(Ride rd){
     return(rd -> score_driver);
 }
+
+char* ride_get_city(Ride rd){
+    return(strdup(rd -> city));
+}

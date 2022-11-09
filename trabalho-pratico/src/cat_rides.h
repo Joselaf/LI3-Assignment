@@ -5,7 +5,10 @@
 #include "driver.h"
 #include "cat_drivers.h"
 #include "cat_users.h"
+#include "cat_rides.h"
 #include "common.h"
+#include "glib-2.0/glib.h"
+
 
 typedef struct cat_rides* CatRides;
 
@@ -21,27 +24,39 @@ void user_stats_add(CatRides catR,CatDrivers catD, CatUsers catU, Ride rd);
 
 void driver_stats_add(CatRides catR, CatDrivers catD, CatUsers catU, Ride rd);
 
-int user_or_driver_stats_get_age(CatRides catR, char* id);
-
 void user_or_driver_stats_add(CatRides catR, CatDrivers catD, CatUsers catU , Ride rd);
 
 void driver_stats_add(CatRides catR,CatDrivers catD,CatUsers catU,Ride rd);
 
-int user_or_driver_stats_get_distance(CatRides catR, char* id);
+void city_stats_add(CatRides catR, CatDrivers catD, CatUsers catU, Ride rd);
 
-int user_or_driver_stats_get_nr_viagens(CatRides catR, char* id);
+int user_stats_get_nr_viagens(CatRides catR, char* id);
 
-double user_or_driver_stats_get_avarage_rating(CatRides catR,char *id);
+int driver_stats_get_nr_viagens(CatRides catR, char* id);
 
-double user_or_driver_stats_get_total(CatRides catR, char *id);
+int user_stats_get_age(CatRides catR, char* id);
 
-int user_or_driver_stats_get_distace(CatRides catR, char* id);
-
-
+int driver_stats_get_age(CatRides catR, char* id);
 
 
+int user_stats_get_distace(CatRides catR, char* id);
+
+double user_stats_get_avarage_rating(CatRides catR,char *id);
+
+double driver_stats_get_avarage_rating(CatRides catR,char *id);
+
+double user_stats_get_total(CatRides catR, char *id);
+
+double driver_stats_get_total(CatRides catR, char *id);
+
+GArray* get_top_drivers(CatRides catR);
 
 
+int city_stats_get_distance(CatRides cat, char* id);
+
+int city_stats_get_nr_viagens(CatRides catR, char *id);
+
+double city_stats_get_total(CatRides catR, char* id);
 
 
 

@@ -139,3 +139,7 @@ CarClass driver_get_car_class(Driver drv){
 Date driver_get_birth(Driver drv){
     return(drv -> birth_date);
 }
+
+char* driver_get_city(Driver drv){
+    return strdup(drv -> city);
+}

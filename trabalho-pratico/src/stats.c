@@ -48,13 +48,13 @@ void stats_results_add_cell(Results res, char* cell){
 }
 
 void stats_results_add_cell_double(Results res, double value){
- char str[32];
+ char str[64];
  sprintf(str, "%.3f", value);
  stats_results_add_cell(res, strdup(str));
 }
 
 void stats_resuts_add_cell_int(Results res, int value){
-    char str[10];
+    char str[12];
     sprintf(str, "%d", value);
     stats_results_add_cell(res, strdup(str));
 }
@@ -67,30 +67,53 @@ char* stats_results_get_cell(Results res, int rowIdx, int colIdx){
 
 Results Q1_get_user_or_driver(Stats s, char* id){
     Results resp = stats_result_new();
+    if(cat_users_get_user(s -> cat_users, id) == NULL && cat_drivers_get_driver(s -> cat_drivers, id) == NULL){
+       return resp;
 
-    if((cat_users_get_user(s->cat_users, id)) != NULL){
+    }else if((cat_users_get_user(s->cat_users, id)) != NULL){
         stats_results_add_row(resp);
         User u = cat_users_get_user(s->cat_users, id);
         stats_results_add_cell(resp,user_get_username(u));
         stats_results_add_cell(resp, user_get_gender(u));
-        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_age(s -> cat_rides, id));
-        stats_results_add_cell_double(resp, user_or_driver_stats_get_avarage_rating(s -> cat_rides, id));
-        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_nr_viagens(s -> cat_rides, id));
-        stats_results_add_cell_double(resp, user_or_driver_stats_get_total(s -> cat_rides, id));
+        stats_resuts_add_cell_int(resp, user_stats_get_age(s -> cat_rides, id));
+        stats_results_add_cell_double(resp, user_stats_get_avarage_rating(s -> cat_rides, id));
+        stats_resuts_add_cell_int(resp, user_stats_get_nr_viagens(s -> cat_rides, id));
+        stats_results_add_cell_double(resp, user_stats_get_total(s -> cat_rides, id));
     }else{
         stats_results_add_row(resp);
         Driver dr = cat_drivers_get_driver(s->cat_drivers, id);
         stats_results_add_cell(resp,driver_get_id(dr));
         stats_results_add_cell(resp,driver_get_gender(dr));
-        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_age(s -> cat_rides, id));
-        stats_results_add_cell_double(resp, user_or_driver_stats_get_avarage_rating(s -> cat_rides, id));
-        stats_resuts_add_cell_int(resp, user_or_driver_stats_get_nr_viagens(s -> cat_rides, id));
-        stats_results_add_cell_double(resp, user_or_driver_stats_get_total(s -> cat_rides, id));
+        stats_resuts_add_cell_int(resp, driver_stats_get_age(s -> cat_rides, id));
+        stats_results_add_cell_double(resp,driver_stats_get_avarage_rating(s -> cat_rides, id));
+        stats_resuts_add_cell_int(resp, driver_stats_get_nr_viagens(s -> cat_rides, id));
+        stats_results_add_cell_double(resp,driver_stats_get_total(s -> cat_rides, id));
 
     }
     return resp;
 
 }
+
+Results Q2_get_N_drivers_( Stats s, int n_drivers){
+   
+
+
+    
+}
+
+Results Q4_get_avarage_price_city( Stats s, char* city){
+    Results res = stats_result_new();
+    stats_results_add_row(res);
+
+    double result = city_stats_get_total(s -> cat_rides, city)/ city_stats_get_nr_viagens(s -> cat_rides, city);
+
+    stats_results_add_cell_double(res, result); 
+
+    return res;
+
+}
+
+
 
 
 

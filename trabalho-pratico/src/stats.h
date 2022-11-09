@@ -22,4 +22,8 @@ void stats_resuts_add_cell_int(Results res, int value);
 
 Results Q1_get_user_or_driver(Stats s, char* id);
 
+Results Q2_get_N_drivers_( Stats s, int n_drivers);
+
+Results Q4_get_avarage_price_city(Stats s, char* city);
+
 
