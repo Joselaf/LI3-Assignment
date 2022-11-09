@@ -39,4 +39,6 @@ char Gender_translator(Gender g);
 
 char* car_class_translator(CarClass class);
 
+int Datecmp(Date d1, Date d2);
+
 #endif

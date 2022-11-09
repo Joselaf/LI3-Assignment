@@ -58,6 +58,10 @@ int city_stats_get_nr_viagens(CatRides catR, char *id);
 
 double city_stats_get_total(CatRides catR, char* id);
 
+GArray* get_top_drivers(CatRides catR);
+
+double cat_rides_get_driver_avarage_score(CatRides catR, char* id);
+
 
 
 #endif

@@ -143,3 +143,7 @@ Date driver_get_birth(Driver drv){
 char* driver_get_city(Driver drv){
     return strdup(drv -> city);
 }
+
+char* driver_get_name(Driver drv){
+    return strdup(drv -> name);
+}

@@ -123,3 +123,7 @@ double ride_get_score_driver(Ride rd){
 char* ride_get_city(Ride rd){
     return(strdup(rd -> city));
 }
+
+Date ride_get_date(Ride rd){
+    return rd-> date;
+}

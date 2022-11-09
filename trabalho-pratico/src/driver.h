@@ -24,6 +24,8 @@ Date driver_get_birth(Driver drv);
 
 char* driver_get_city(Driver drv);
 
+char* driver_get_name(Driver drv);
+
 
 
 #endif

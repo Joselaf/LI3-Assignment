@@ -94,10 +94,22 @@ Results Q1_get_user_or_driver(Stats s, char* id){
 
 }
 
-Results Q2_get_N_drivers_( Stats s, int n_drivers){
-   
+Results Q2_get_N_drivers( Stats s, int n_drivers){
+   GArray *drivers_ids = get_top_drivers(s -> cat_rides);
 
+    Results res = stats_result_new();
+    
 
+        for(int i = 0; i < n_drivers; i++){
+            stats_results_add_row(res);
+            char * drv_id = g_array_index(drivers_ids, char*, i);
+            Driver drv = cat_drivers_get_driver(s -> cat_drivers, g_array_index(drivers_ids, char*, i));
+            stats_results_add_cell(res, driver_get_id(drv));
+            stats_results_add_cell(res, driver_get_name(drv));
+            stats_results_add_cell_double(res, cat_rides_get_driver_avarage_score(s -> cat_rides, drv_id));
+        }
+
+    return res;
     
 }
 

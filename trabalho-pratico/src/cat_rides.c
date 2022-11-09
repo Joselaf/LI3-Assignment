@@ -5,11 +5,13 @@
 #define YEAR (2022)
 
 typedef struct user_or_driver_stats{
+    char id[16];
     int idade;
     int nr_viagens;
     int distancia;
     double score;
     double total_envolvido;
+    Date latest_ride;
 };
 
 typedef struct city_stats{
@@ -77,6 +79,9 @@ void driver_stats_add(CatRides catR,CatDrivers catD,CatUsers catU,Ride rd){
         st -> nr_viagens++;
         st -> distancia += ride_get_distance(rd);
         st -> score += ride_get_score_driver(rd);
+        if(Datecmp(ride_get_date(rd), st -> latest_ride) == 1){
+            st -> latest_ride = ride_get_date(rd);
+        }
         CarClass c3= cat_driver_get_class(catD, ride_get_driver(rd));
         switch (c3)
         {
@@ -94,10 +99,12 @@ void driver_stats_add(CatRides catR,CatDrivers catD,CatUsers catU,Ride rd){
 
     }else{
         struct user_or_driver_stats *st =  malloc(sizeof(struct user_or_driver_stats));
+        strcpy(st -> id, ride_get_driver(rd));
         st -> idade = user_or_driver_stats_calculate_age(driver_get_birth(cat_drivers_get_driver(catD,(ride_get_driver(rd)))));
         st -> nr_viagens = 1;
         st -> distancia = ride_get_distance(rd);
         st -> score = ride_get_score_driver(rd);
+        st -> latest_ride = ride_get_date(rd);
         CarClass c4 = cat_driver_get_class(catD, ride_get_driver(rd));
         switch (c4)
         {
@@ -124,6 +131,9 @@ void user_stats_add(CatRides catR, CatDrivers catD, CatUsers catU, Ride rd){
         st -> nr_viagens++;
         st -> distancia += ride_get_distance(rd);
         st -> score += ride_get_score_user(rd);
+         if(Datecmp(ride_get_date(rd), st -> latest_ride) == 1){
+            st -> latest_ride = ride_get_date(rd);
+        }
         CarClass c2= cat_driver_get_class(catD, ride_get_driver(rd));
         switch (c2)
         {
@@ -142,9 +152,11 @@ void user_stats_add(CatRides catR, CatDrivers catD, CatUsers catU, Ride rd){
     }else{
         struct user_or_driver_stats *st =  malloc(sizeof(struct user_or_driver_stats));
         st -> idade = user_or_driver_stats_calculate_age(user_get_birth(cat_users_get_user(catU,(ride_get_user(rd)))));
+        strcpy(st -> id, ride_get_user(rd));
         st -> nr_viagens = 1;
         st -> distancia = ride_get_distance(rd);
         st -> score = ride_get_score_user(rd);
+        st -> latest_ride = ride_get_date(rd);
         CarClass c1 = cat_driver_get_class(catD, ride_get_driver(rd));
         switch (c1)
         {
@@ -210,7 +222,6 @@ void city_stats_add(CatRides catR, CatDrivers catD, CatUsers catU, Ride rd){
 
 
 }
-
 
 
 int user_stats_get_nr_viagens(CatRides catR, char* id){
@@ -287,11 +298,52 @@ void hash_table_to_array(gpointer key, gpointer value, gpointer array){
     g_array_append_val(array, *(struct user_or_driver_stats*)value);
 }
 
+int compare_drivers(gconstpointer a, gconstpointer b){
+    const struct user_or_driver_stats* st_a = a;
+    const struct user_or_driver_stats* st_b = b; 
+
+    double score_a = (st_a -> score/st_a -> nr_viagens);
+
+    double score_b = (st_b -> score/ st_b -> nr_viagens);
+
+    if( score_a > score_b){
+        return -1;
+    } else if(score_a < score_b){
+        return 1;
+    } else {
+        if(Datecmp(st_a -> latest_ride, st_b -> latest_ride) == 1){
+            return -1;
+        }else if(Datecmp(st_a -> latest_ride, st_b -> latest_ride) == -1){
+            return 1;
+        }else{
+            return strcmp(st_a -> id, st_b -> id);
+
+        }
+
+    }
+
+}
+
 GArray* get_top_drivers(CatRides catR){
     GArray *n_drivers = g_array_new(FALSE, FALSE, sizeof(struct user_or_driver_stats));
     g_hash_table_foreach(catR -> driver_stats, hash_table_to_array , n_drivers );
+    g_array_sort(n_drivers, compare_drivers);
 
-    
+    GArray *drivers_ids = g_array_new(FALSE, FALSE, sizeof(char *));
+    for(int i = 0; i< n_drivers -> len; i++){
+        struct user_or_driver_stats st = g_array_index(n_drivers, struct user_or_driver_stats, i);
+        char *str = strdup(st.id);
+        g_array_append_val(drivers_ids, str);
+    }
+    return drivers_ids;
+
+
+}
+
+double cat_rides_get_driver_avarage_score(CatRides catR, char* id){
+    struct user_or_driver_stats *st = g_hash_table_lookup(catR -> driver_stats , id); 
+
+    return (st -> score) / (st -> nr_viagens);
 }
 
 
