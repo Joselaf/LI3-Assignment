@@ -12,7 +12,8 @@
 
 
 
-int main(){
+int main(int argc, char **argv){
+
     FILE *fp = fopen("dataset1/users.csv", "r");
     char str[256];
     CatUsers cat_users = new_cat_users();
@@ -56,10 +57,12 @@ int main(){
         // ride_print(rd);
 
     
-    Stats s = stats_new(cat_users, cat_drivers, cat_rides);
+    Stats s = stats_new(cat_users, cat_drivers, cat_rides);   
 
-    Results res = Q2_get_N_drivers(s, 10);
-    print_table(res, stdout);
+    queries_file(s, argv[1]);
+
+    // Results res = Q2_get_N_drivers(s, 10);
+    // print_table(res, stdout);
 
 
 

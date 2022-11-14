@@ -37,7 +37,7 @@ Driver driver_parsing( char* driverStr){
     if(chunck[0] == 'M'){
         drv -> gender = M;
     }else{
-        drv -> gender = 'F';
+        drv -> gender = F;
     }
 
     chunck = strtok_r(NULL, ";", &rest);

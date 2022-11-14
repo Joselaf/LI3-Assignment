@@ -125,6 +125,34 @@ Results Q4_get_avarage_price_city( Stats s, char* city){
 
 }
 
+void queries_file(Stats s, char *file_path){
+    Results res = stats_result_new();
+    
+    FILE* fp = fopen(file_path, "r");
+
+    char query[256];
+
+    while(fgets(query,256,fp)){
+        //limpesa query
+        if(query[strlen(query)-1]== '\n'){
+            query[strlen(query)-1]= '\0';
+        }
+        switch(query[0]){
+            case '1':
+            res = Q1_get_user_or_driver(s, &query[2]);
+            print_table(res, stdout);
+            break;
+            case '4':
+            res = Q4_get_avarage_price_city(s, &query[2]);
+            print_table(res, stdout);
+            break;
+        }
+    }
+
+    return;
+
+}
+
 void print_table(Results res, FILE *file){
     int n_rows = res ->row ->len;
 
