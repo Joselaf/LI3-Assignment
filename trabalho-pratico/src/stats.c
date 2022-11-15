@@ -146,6 +146,10 @@ void queries_file(Stats s, char *file_path){
             res = Q4_get_avarage_price_city(s, &query[2]);
             print_table(res, stdout);
             break;
+            case '2':
+            res = Q2_get_N_drivers(s, atoi(&query[2]));
+            print_table(res, stdout);
+            break;
         }
     }
 
