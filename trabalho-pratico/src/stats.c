@@ -125,36 +125,44 @@ Results Q4_get_avarage_price_city( Stats s, char* city){
 
 }
 
-void queries_file(Stats s, char *file_path){
+void queries_file(Stats s, char* folder, char *file_path){
     Results res = stats_result_new();
     
     FILE* fp = fopen(file_path, "r");
 
     char query[256];
+    int linha = 0;
 
-    while(fgets(query,256,fp)){
-        //limpesa query
-        if(query[strlen(query)-1]== '\n'){
-            query[strlen(query)-1]= '\0';
+    fgets(query,256,fp);
+    do{
+        //limpesa query_file
+        if(query[strlen(query)-1] == '\n'){
+            query[strlen(query)-1] = '\0';
         }
+        char file[32] = "";
+        sprintf(file,"command%d_output.txt",linha);
+        FILE* f = fopen(folder_file_cat(folder,file),"w");
+
         switch(query[0]){
             case '1':
             res = Q1_get_user_or_driver(s, &query[2]);
-            print_table(res, stdout);
+            print_table(res, f);
             break;
             case '2':
             res = Q2_get_N_drivers(s, atoi(&query[2]));
-            print_table(res, stdout);
+            print_table(res, f);
             break;
             case '4':
             res = Q4_get_avarage_price_city(s, &query[2]);
-            print_table(res, stdout);
+            print_table(res, f);
             break;
         }
-    }
+        fclose(f);
+        linha ++ ;
+    }while(fgets(query,256,fp));
+    fclose(fp);
 
     return;
-
 }
 
 void print_table(Results res, FILE *file){
@@ -178,6 +186,19 @@ void print_row(Results res, FILE *file, int row){
     }
     fprintf(file, "\n");
 }
+
+char* folder_file_cat(char * folder, char * file){
+    int size = strlen(folder)+strlen(file)+2;
+    char* location = malloc(sizeof(char) * size);
+
+    strcpy(location, folder);
+    strcat(location, "/");
+    strcat(location, file);
+
+    return location;
+
+}
+
 
 
 

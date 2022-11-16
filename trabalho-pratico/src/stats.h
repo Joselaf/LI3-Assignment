@@ -30,7 +30,9 @@ Results Q2_get_N_drivers( Stats s, int n_drivers);
 
 Results Q4_get_avarage_price_city(Stats s, char* city);
 
-void queries_file(Stats s, char *file_path);
+void queries_file(Stats s, char* folder, char *file_path);
+
+char* folder_file_cat(char * folder, char * file);
 
 
 

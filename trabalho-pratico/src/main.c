@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 #include "driver.h"
 #include "user.h"
@@ -11,18 +12,6 @@
 #include "cat_rides.h"
 #include "stats.h"
 
-
-char* folder_file_cat(char * folder, char * file){
-    int size = strlen(folder)+strlen(file)+2;
-    char* location = malloc(sizeof(char) * size);
-
-    strcpy(location, folder);
-    strcat(location, "/");
-    strcat(location, file);
-
-    return location;
-
-}
 
 int main(int argc, char **argv){
      char* folder = argv[1];
@@ -70,8 +59,9 @@ int main(int argc, char **argv){
     
     Stats s = stats_new(cat_users, cat_drivers, cat_rides);   
 
-    queries_file(s, argv[2]);
+    mkdir("Resultados", 0755);
 
+    queries_file(s,"Resultados" ,argv[2]);
 
 
 
